@@ -2,37 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    button {
+        @apply focus:outline-none focus:ring-brand focus:border-brand border rounded-md shadow-sm px-1
+    }
+}
+
 @layer components {
     button {
-        @apply focus:outline-none;
-        @apply focus:ring-brand;
-        @apply focus:border-brand;
-        @apply border rounded-md shadow-sm px-1
+        @apply focus:outline-none focus:ring-brand focus:border-brand border rounded-md shadow-sm px-1
+    }
+
+    .btn-link {
+        @apply text-white text-sm  font-medium hover:text-opacity-75
+    }
+
+    .btn {
+        @apply inline-block py-2 px-4 text-sm border border-transparent rounded-md shadow-sm font-medium text-white hover:bg-opacity-75 focus:ring-2 focus:ring-offset-2
     }
 
     .btn-primary {
-        @apply w-full flex justify-center py-2 px-4 border border-transparent
-        rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brand-light
-        focus:ring-2 focus:ring-offset-2
+        @apply btn  bg-brand
     }
 
+
     .btn-secondary {
-        @apply w-full flex justify-center py-2 px-4 border border-gray-300 border-transparent
-        rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-100
-        focus:ring-2 focus:ring-offset-2
+        @apply btn text-gray-700 bg-white border-gray-50
     }
 
     .btn-warn {
-        @apply w-full flex justify-center py-2 px-4 border border-transparent
-        rounded-md shadow-sm text-sm font-medium text-white bg-red-400 hover:bg-red-300
-        focus:ring-2 focus:ring-offset-2 focus:ring-red-400
+        @apply btn  bg-red-400
     }
 
+
+
     .btn-disable {
-        @apply w-full flex justify-center py-2 px-4 border border-transparent
-        rounded-md shadow-sm text-sm font-medium text-white bg-gray-500 cursor-not-allowed
-        focus:ring-2 focus:ring-offset-2
+        @apply btn text-white bg-gray-500 cursor-not-allowed
     }
+
 
     .input-primary {
         @apply appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400
