@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { useState } from 'react'
 
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { imgUrl } from '../../service/url'
+import { signUp } from '../../firebase/auth'
 
 // import { userLogin } from '../../service/commonApi'
 // import { inputEmptyConfig, ModalConfig, passwordIncorrectConfig } from '../../utils/modalConfig'
@@ -17,20 +18,24 @@ export default function Signup() {
   //     config
   //   })
   // }
-
-  // let history = useHistory()
+  const navigate = useNavigate()
   const location = useLocation()
   const params = new URLSearchParams(location.search)
   const redirectPath = params.get('redirect') || '/'
-  const [email, setEmail] = useState<null | string>(null)
-  const [username, setUsername] = useState<null | string>(null)
-  const [password, setPassword] = useState<null | string>(null)
-  const [password_, setPassword_] = useState<null | string>(null)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [password_, setPassword_] = useState('')
   const isPasswordMatch = password === password_
   // const { dispatch: UserDispatch } = useUserInfoContext()
-
+  const handleSignUp = async () => {
+    if (email && password && isPasswordMatch) {
+      const res = await signUp(email, password)
+      console.log(res)
+      navigate('/login')
+    }
+  }
   return (
-    <div className="min-h-full bg-white flex">
+    <div className="min-h-full w-screen bg-white flex">
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
@@ -42,94 +47,72 @@ export default function Signup() {
               Or{' '}
               <Link
                 to={`/login?redirect=${redirectPath}`}
-                className='font-medium text-brand hover:text-brand-light'
+                className="font-medium text-brand hover:text-brand-light"
               >
                 already have one?
               </Link>
             </p>
           </div>
-          <div className='mt-8'>
-            <div className='mt-6'>
-              <form action='#' method='POST' className='space-y-6'>
-
-                <div className='space-y-1'>
+          <div className="mt-8">
+            <div className="mt-6">
+              <form action="#" method="POST" className="space-y-6">
+                <div className="space-y-1">
                   <label
-                    htmlFor='username'
-                    className='block text-sm font-medium text-gray-700'
-                  >
-                    User Name
-                  </label>
-                  <div className='mt-1'>
-                    <input
-                      id='username'
-                      name='username'
-                      type='text'
-                      autoComplete='username'
-                      required
-                      className='input-primary'
-                      onChange={(e) => {
-                        setUsername(e.target.value)
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className='space-y-1'>
-                  <label
-                    htmlFor='email'
-                    className='block text-sm font-medium text-gray-700'
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     Email
                   </label>
-                  <div className='mt-1'>
+                  <div className="mt-1">
                     <input
-                      id='email'
-                      name='email'
-                      type='text'
-                      autoComplete='email'
+                      id="email"
+                      name="email"
+                      type="text"
+                      autoComplete="email"
                       required
-                      className='input-primary'
+                      className="input-primary"
                       onChange={(e) => {
                         setEmail(e.target.value)
                       }}
                     />
                   </div>
                 </div>
-                <div className='space-y-1'>
+                <div className="space-y-1">
                   <label
-                    htmlFor='password'
-                    className='block text-sm font-medium text-gray-700'
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     Password
                   </label>
-                  <div className='mt-1'>
+                  <div className="mt-1">
                     <input
-                      id='password'
-                      name='password'
-                      type='password'
-                      autoComplete='current-password'
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
                       required
-                      className='input-primary'
+                      className="input-primary"
                       onChange={(e) => {
                         setPassword(e.target.value)
                       }}
                     />
                   </div>
                 </div>
-                <div className='space-y-1'>
+                <div className="space-y-1">
                   <label
-                    htmlFor='password_'
-                    className='block text-sm font-medium text-gray-700'
+                    htmlFor="password_"
+                    className="block text-sm font-medium text-gray-700"
                   >
                     Confirm Password
                   </label>
-                  <div className='mt-1'>
+                  <div className="mt-1">
                     <input
-                      id='password_'
-                      name='password_'
-                      type='password'
-                      autoComplete='current-password_'
+                      id="password_"
+                      name="password_"
+                      type="password"
+                      autoComplete="current-password_"
                       required
-                      className='input-primary'
+                      className="input-primary"
                       onChange={(e) => {
                         setPassword_(e.target.value)
                       }}
@@ -137,40 +120,23 @@ export default function Signup() {
                   </div>
                 </div>
 
-                <div className='space-y-2'>
+                <div className="space-y-2">
                   <button
-                    type='submit'
-                    className='btn-primary'
-                    onClick={async (event) => {
+                    type="submit"
+                    className="btn-primary flex w-full justify-center"
+                    onClick={(event) => {
                       event.preventDefault()
-                      // if (username && password && email) {
-                      //   if (isPasswordMatch) {
-                      //     let res = await userSignUp(username, email, password)
-                      //     if (res.success) {
-                      //       if (redirectPath) {
-                      //         history.push(`/login?redirect=${redirectPath}`)
-                      //       } else {
-                      //         history.push('/login')
-                      //       }
-                      //     } else {
-                      //       openModel({ ...inputIncorrectConfig, body: res.msg })
-                      //     }
-                      //   } else {
-                      //     openModel(passwordMismatchConfig)
-                      //   }
-                      // } else {
-                      //   openModel(inputEmptyConfig)
-                      // }
+                      handleSignUp()
                     }}
                   >
                     Sign up
                   </button>
                   <button
-                    type='submit'
-                    className='btn-secondary'
+                    type="submit"
+                    className="btn-secondary flex w-full justify-center"
                     onClick={async (event) => {
                       event.preventDefault()
-                      // history.goBack()
+                      navigate(-1)
                     }}
                   >
                     Go Back

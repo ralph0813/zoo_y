@@ -1,32 +1,59 @@
 import * as React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { imgUrl } from '../../service/url'
+import { useEffect, useState } from 'react'
 
-import { useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { UserCredential } from 'firebase/auth'
+
+import { imgUrl } from '../../service/url'
+import { signIn } from '../../firebase/auth'
+import { useUserInfoContext } from '../../context/userContext'
 // import { userLogin } from '../../service/commonApi'
 // import { inputEmptyConfig, ModalConfig, passwordIncorrectConfig } from '../../utils/modalConfig'
 // import { useModelContext } from '../../context/ModelContext'
 // import { useUserInfoContext } from '../../context/UserInfoContext'
 
 export default function Login() {
-  // const { dispatch: modelDispatch } = useModelContext()
-  // const openModel = (config: ModalConfig) => {
-  //   modelDispatch({
-  //     type: 'OPEN',
-  //     config
-  //   })
-  // }
+  const {
+    state: userInfo,
+    dispatch: userInfoDispatch
+  } = useUserInfoContext()
 
-  // let history = useHistory()
+  const navigate = useNavigate()
   const location = useLocation()
   const params = new URLSearchParams(location.search)
   const redirectPath = params.get('redirect') || '/'
-  const [username, setUsername] = useState<null | string>(null)
-  const [password, setPassword] = useState<null | string>(null)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errMsg, setErrMsg] = useState('')
   // const { dispatch: UserDispatch } = useUserInfoContext()
-
+  const handleLogin = async () => {
+    if (email && password) {
+      try {
+        const res = await signIn(email, password) as UserCredential
+        const user = res.user
+        if (user.emailVerified) {
+          console.log(user)
+          userInfoDispatch({
+            type: 'LOGIN'
+          })
+          navigate(redirectPath)
+        } else {
+          setErrMsg('Please verify your email address first.')
+        }
+      } catch (e) {
+        setErrMsg('Wrong email or password.')
+      }
+    }
+  }
+  useEffect(() => {
+    if (errMsg) {
+      setTimeout(() => {
+        setErrMsg('')
+      }, 5000)
+    }
+  }, [errMsg])
   return (
-    <div className="min-h-full bg-white flex">
+    <div className="min-h-full w-screen bg-white flex">
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
@@ -48,11 +75,12 @@ export default function Login() {
             <div className="mt-6">
               <form action="#" method="POST" className="space-y-6">
                 <div>
+                  {errMsg && <p className="text-base text-red-600 mb-6">{errMsg}</p>}
                   <label
-                    htmlFor="username"
+                    htmlFor="Email"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Username / Email
+                    Email
                   </label>
                   <div className="mt-1">
                     <input
@@ -63,7 +91,7 @@ export default function Login() {
                       required
                       className="input-primary"
                       onChange={(e) => {
-                        setUsername(e.target.value)
+                        setEmail(e.target.value)
                       }}
                     />
                   </div>
@@ -105,46 +133,19 @@ export default function Login() {
                   <button
                     type="submit"
                     className="btn-primary flex w-full justify-center"
-                    onClick={async (event) => {
+                    onClick={(event) => {
                       event.preventDefault()
-                      // if (username && password) {
-                      //   let {
-                      //     success,
-                      //     data
-                      //   } = await userLogin(username, password)
-                      //   if (success) {
-                      //     UserDispatch({
-                      //       type: 'UPDATE_WITH_FETCHED_DATA',
-                      //       data
-                      //     })
-                      //     if (redirectPath && redirectPath !== 'null') {
-                      //       history.push(redirectPath)
-                      //     } else if (history.length > 2) {
-                      //       history.goBack()
-                      //     } else {
-                      //       history.push('/')
-                      //     }
-                      //   } else {
-                      //     UserDispatch({ type: 'CLEAR' })
-                      //     // setModalConfig(passwordIncorrectConfig)
-                      //     // setOpenModal(true)
-                      //     openModel(passwordIncorrectConfig)
-                      //   }
-                      // } else {
-                      //   // setModalConfig(inputEmptyConfig)
-                      //   // setOpenModal(true)
-                      //   openModel(inputEmptyConfig)
-                      // }
+                      handleLogin()
                     }}
                   >
                     Login
                   </button>
                   <button
                     type="submit"
-                    className="btn-secondary inline-flex w-full justify-center"
+                    className="btn-secondary flex w-full justify-center"
                     onClick={async (event) => {
                       event.preventDefault()
-                      // history.goBack()
+                      navigate(-1)
                     }}
                   >
                     Go Back

@@ -14,7 +14,7 @@ const YoutubeEmbed = ({ embedId }: { embedId: string }) => {
     id = youtube_parser(embedId) as string
   }
   return (
-    <div className='w-full h-60 md:h-96 lg:h-120'>
+    <div className='w-full h-64 sm:h-96 md:h-120'>
       <iframe
         width='100%'
         height='100%'
