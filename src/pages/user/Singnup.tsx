@@ -27,15 +27,21 @@ export default function Signup() {
   const [password_, setPassword_] = useState('')
   const isPasswordMatch = password === password_
   // const { dispatch: UserDispatch } = useUserInfoContext()
+  // Portal({
+  //   id: 'alert',
+  //   children: <Alert />
+  // })
   const handleSignUp = async () => {
     if (email && password && isPasswordMatch) {
       const res = await signUp(email, password)
-      console.log(res)
       navigate('/login')
+    } else {
+      alert('Check your input.')
     }
+
   }
   return (
-    <div className="min-h-full w-screen bg-white flex">
+    <div className="min-h-full w-screen bg-white flex flex-grow">
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>

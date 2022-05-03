@@ -80,7 +80,7 @@ export default function Header() {
         </div>
         <div className="py-2 flex flex-wrap justify-center space-x-6 lg:hidden">
           {navigation.map((link) => (
-            <Link key={link.name} to={link.to} className="text-base btn-link">
+            <Link key={link.name} to={link.to} className="text-base btn-link text-white text-sm">
               {link.name}
             </Link>
           ))}

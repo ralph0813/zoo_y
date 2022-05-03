@@ -2,6 +2,8 @@ import * as React from 'react'
 
 export default function Characteristic() {
   return (
-    <div>Characteristic Page</div>
+    <div className="base-box">
+      Characteristic Page
+    </div>
   )
 }

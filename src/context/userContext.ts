@@ -13,15 +13,19 @@ export type Action = {
 
 export type UserInfoDispatch = React.Dispatch<Action>
 
-export const initialState: UserInfo = {
-  isLogin: localStorage.getItem('isLogin') === 'true',
-  userName: localStorage.getItem('userName') || ''
+const getInitState = (): UserInfo => {
+  return {
+    isLogin: localStorage.getItem('isLogin') === 'true',
+    userName: localStorage.getItem('userName') || ''
+  }
 }
+
+export const initialState = getInitState()
 
 export function reducer(state: UserInfo, action: Action) {
   switch (action.type) {
     case 'INIT':
-      return { ...initialState }
+      return getInitState()
     case 'GET':
       return { ...state }
     case 'UPDATE':
@@ -37,7 +41,7 @@ export function reducer(state: UserInfo, action: Action) {
     case 'LOGOUT':
       localStorage.removeItem('isLogin')
       localStorage.removeItem('userName')
-      return initialState
+      return getInitState()
     default:
       throw new Error()
   }

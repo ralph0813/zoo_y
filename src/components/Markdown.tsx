@@ -13,7 +13,10 @@ const Markdown = () => {
   return (
     <MdEditor
       placeholder={placeholder}
-      style={{ height: '100%' }}
+      style={{
+        height: '100%',
+        width: '100%'
+      }}
       renderHTML={(text) => mdParser.render(text)}
       onChange={({ text }) => {
         setBody(text)

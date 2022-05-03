@@ -1,11 +1,11 @@
 export function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean)
+    .join(' ')
 }
 
 export interface LocalStorageItem {
   [key: string]: string
 }
-
 
 export const setLocalStorage = (localStorageItems: LocalStorageItem) => {
   for (const key in localStorageItems) {
@@ -38,4 +38,9 @@ export const timeFromNow = (start: Date) => {
   } else {
     return [minutes, 'minutes']
   }
+}
+
+export function range(start: number, end: number) {
+  return (new Array(end - start + 1)).fill(undefined)
+    .map((_, i) => i + start)
 }

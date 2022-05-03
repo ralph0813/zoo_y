@@ -11,6 +11,8 @@ import Characteristic from './pages/Characteristic/Characteristic'
 import Conclusion from './pages/Conclusion/Conclusion'
 import Posts from './pages/Posts/Posts'
 import Profile from './pages/user/Profile'
+import Detail from './pages/Posts/Detail'
+import AddPost from './pages/Posts/AddPost'
 
 import {
   UserInfoContext,
@@ -20,7 +22,6 @@ import {
 
 export default function App() {
   const [userInfo, userInfoDispatcher] = useReducer(userInfoReducer, userInitialState)
-
   return (
     <Router>
       <UserInfoContext.Provider value={{
@@ -32,11 +33,12 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/characteristic" element={<Characteristic />} />
             <Route path="/conclusion" element={<Conclusion />} />
             <Route path="/posts" element={<Posts />} />
-            <Route path="/profile" element={<Profile />} />
-
+            <Route path="/posts/:postId" element={<Detail />} />
+            <Route path="/posts/add" element={<AddPost />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BaseLayout>

@@ -9,12 +9,13 @@
 }
 
 @layer components {
-    button {
-        @apply focus:outline-none focus:ring-brand focus:border-brand border rounded-md shadow-sm px-1
+    .base-box{
+        @apply flex flex-col flex-grow max-w-6xl mx-auto w-full h-full items-center space-y-2 m-5 px-5 py-2 bg-white shadow rounded-sm
     }
 
+
     .btn-link {
-        @apply text-white text-sm  font-medium hover:text-opacity-75
+        @apply text-blue-600 hover:text-opacity-75 cursor-pointer
     }
 
     .btn {
