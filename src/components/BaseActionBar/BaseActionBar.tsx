@@ -49,14 +49,12 @@ const BaseActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
     //   return
     // }
     // const { success, isThumbUp } = await doThumbUp({ articleId: articleId })
-    if (true) {
-      setThumbUp(isThumbUp)
-      if (isThumbUp) {
-        setThumbUpNum((num) => num + 1)
-      } else {
-        setThumbUpNum((num) => num - 1)
-      }
+    if (!thumbUp) {
+      setThumbUpNum((num) => num + 1)
+    } else {
+      setThumbUpNum((num) => num - 1)
     }
+    setThumbUp(!thumbUp)
   }
   const [timeFrom, unit] = timeFromNow(new Date(createTime.replace(' ', 'T')))
   return (
