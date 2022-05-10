@@ -71,7 +71,7 @@ const Profile = () => {
   }, [avatarUrl, userInfo])
 
   return (
-    <div className="divide-y divide-gray-200 lg:col-span-9">
+    <div className="divide-y divide-gray-200 lg:col-span-9 max-w-6xl mx-auto w-full">
       <div className="py-6 px-4 sm:p-6 lg:pb-8">
         <div>
           <h2 className="text-lg leading-6 font-medium text-gray-900">Profile</h2>
@@ -115,10 +115,7 @@ const Profile = () => {
                 />
               </div>
             </div>
-
-
           </div>
-
           {/* <div className="mt-6 flex-grow lg:mt-0 lg:ml-6 lg:flex-grow-0 lg:flex-shrink-0"> */}
           {/*   <p className="text-sm font-medium text-gray-700" aria-hidden="true"> */}
           {/*     Photo */}
@@ -226,7 +223,7 @@ const Profile = () => {
           </form>
 
         </div>
-        <div>
+        <div className="pt-6">
           <label htmlFor="about" className="block text-sm font-medium text-gray-700">
             About
           </label>

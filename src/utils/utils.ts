@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean)
     .join(' ')
@@ -37,6 +39,24 @@ export const timeFromNow = (start: Date) => {
     return [hours, 'hours']
   } else {
     return [minutes, 'minutes']
+  }
+}
+
+export const FormatTime = (dateTime?: string) => {
+  const locale = 'en'
+  const dateTime_ = dateTime ? new Date(dateTime) : new Date()
+
+  const day = dateTime_.toLocaleDateString(locale, { weekday: 'long' })
+  const date = `${day}, ${dateTime_.getDate()} ${dateTime_.toLocaleDateString(locale, { month: 'long' })}\n\n`
+
+  const time = dateTime_.toLocaleTimeString(locale, {
+    hour: 'numeric',
+    hour12: false,
+    minute: 'numeric'
+  })
+  return {
+    date,
+    time
   }
 }
 

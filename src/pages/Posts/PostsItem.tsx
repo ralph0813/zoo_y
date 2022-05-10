@@ -1,5 +1,5 @@
 import * as React from 'react'
-import BaseActionBar from '../../components/BaseActionBar/BaseActionBar'
+import BaseActionBar from '../../components/action_bar/BaseActionBar'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -17,8 +17,8 @@ export default function PostsItem() {
   const [more, setMore] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const navigate = useNavigate()
-  const goToPostDetail = () => navigate(item.id)
-  const getShortBody = (text: string) => text.slice(0, shorTextCont) + '...'
+  const goToPostDetail = () => navigate('/posts/' + item.id)
+  const getShortBody = (text: string) => text.split(" ").slice(0, shorTextCont).join(" ") + '...'
 
   const item: PostItem = {
     id: '1abs',
@@ -35,7 +35,7 @@ export default function PostsItem() {
       '"He is just going to help us push the car out of the driveway.'
   }
 
-  const shorTextCont = 250
+  const shorTextCont = 80
   const date = new Date()
   const min = date.getMinutes()
   date.setMinutes(min - 10)
@@ -70,7 +70,7 @@ export default function PostsItem() {
 
   return (
     <div>
-      <div className="px-5 py-2 pt-3 bg-white shadow rounded-sm flex flex-col flex-grow w-full border-b space-y-1">
+      <div className="px-3 py-2 pt-3 bg-white shadow rounded-sm flex flex-col flex-grow w-full border-b space-y-1">
         <div className="flex items-center space-x-2 cursor-pointer">
           <img src={item.avatar} className="w-6 h-6 -translate-x-0.5" alt="" />
           <div className="font-medium">{item.userName}</div>
