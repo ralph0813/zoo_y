@@ -1,5 +1,5 @@
 import React from 'react'
-import YoutubeEmbed from '../../components/YoutubeEmbed/YoutubeEmbed'
+import YoutubeEmbed from '../../components/embed/YoutubeEmbed'
 
 export default function Home() {
   return (

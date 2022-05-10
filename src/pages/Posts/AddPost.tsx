@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useParams } from 'react-router-dom'
-import ReachText from '../../components/TinyMCE/RichTextEditor'
+import ReachText from '../../components/tiny_mce/RichTextEditor'
 
 export default function AddPost() {
   const date = new Date()

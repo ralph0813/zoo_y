@@ -1,6 +1,6 @@
 import * as React from 'react'
 import DetailActionBar from '../../components/action_bar/DetailActionBar'
-import ShowRich from '../../components/TinyMCE/ShowRich'
+import ShowRich from '../../components/tiny_mce/ShowRich'
 
 export default function DetailItem(){
   const item = {

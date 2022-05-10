@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useDate } from '../../hooks/useDate'
-import RichTextEditor from '../../components/TinyMCE/RichTextEditor'
+import RichTextEditor from '../../components/tiny_mce/RichTextEditor'
 
 export default function FollowPosts() {
   const {
