@@ -70,7 +70,7 @@ export default function PostsItem() {
 
   return (
     <div>
-      <div className="px-3 py-2 pt-3 bg-white shadow rounded-sm flex flex-col flex-grow w-full border-b space-y-1">
+      <div className="px-3 py-2 pt-3 bg-white shadow rounded-md flex flex-col flex-grow w-full border-b space-y-1 border border-gray-100">
         <div className="flex items-center space-x-2 cursor-pointer">
           <img src={item.avatar} className="w-6 h-6 -translate-x-0.5" alt="" />
           <div className="font-medium">{item.userName}</div>
@@ -97,7 +97,6 @@ export default function PostsItem() {
               </div>
             )
           }
-
         </div>
         <div className="pt-2">
           <BaseActionBar actionProps={actionProps} />

@@ -4,10 +4,24 @@ import { useNavigate, useParams } from 'react-router-dom'
 import DetailItem from './DetailItem'
 import FollowPosts from './FollowPosts'
 import { range } from '../../utils/utils'
+import { getPostDetail } from '../../firebase/service'
 
 export default function Detail() {
   const params = useParams()
   console.log(params.postId)
+  const postId = params.postId
+
+  const [postDetail, setPostDetail] = useState()
+
+  useEffect(() => {
+    const getDetail = async () => {
+      const detail = await getPostDetail({ postId })
+      // @ts-ignore
+      setPostDetail(detail)
+      console.log(detail)
+    }
+    getDetail()
+  }, [])
 
   const navigate = useNavigate()
   const goToPostDetail = () => navigate('/posts/' + item.id)
@@ -40,8 +54,8 @@ export default function Detail() {
 
       {range(0, postsNum)
         .map((key) => (
-          <div className="p-0.5">
-            <DetailItem key={key} />
+          <div className="p-0.5" key={key} >
+            <DetailItem />
           </div>
         ))}
       <div ref={myRef} />

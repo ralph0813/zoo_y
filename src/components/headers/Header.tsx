@@ -33,6 +33,7 @@ export default function Header() {
   const handleSignOut = async () => {
     await logOut()
     userInfoDispatch({ type: 'LOGOUT' })
+    alert("Log out successfully")
   }
   return (
     <header className="bg-gray-800">

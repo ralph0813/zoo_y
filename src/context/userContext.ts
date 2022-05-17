@@ -24,23 +24,19 @@ export const initialState = getInitState()
 
 export function reducer(state: UserInfo, action: Action) {
   switch (action.type) {
-    case 'INIT':
-      return getInitState()
-    case 'GET':
-      return { ...state }
     case 'UPDATE':
       setLocalStorage(action.data)
       return { ...state, ...action.data }
     case 'LOGIN':
       localStorage.setItem('isLogin', 'true')
-      localStorage.setItem('userName', 'true')
+      localStorage.setItem('userName', action?.data?.userName)
       return {
         ...state,
+        ...action.data,
         isLogin: true
       }
     case 'LOGOUT':
-      localStorage.removeItem('isLogin')
-      localStorage.removeItem('userName')
+      localStorage.clear()
       return getInitState()
     default:
       throw new Error()

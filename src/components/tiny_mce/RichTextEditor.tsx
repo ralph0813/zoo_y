@@ -1,15 +1,22 @@
 // @ts-nocheck
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import ShowRich from './ShowRich'
 
-export default function RichTextEditor({ height = 500 }) {
+export default function RichTextEditor({
+  height = 500}) {
   const editorRef = useRef(null)
   const log = () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent())
+      const richText = editorRef.current.getContent()
+      const plainText = editorRef.current.getBody().textContent
     }
   }
+  // const onInputChange = () => {
+  //   const richText = editorRef.current.getContent()
+  //   const  plainText = editorRef.current.getBody().textContent
+  //   console.log(richText)
+  // }
 
   const initV = '<p dir="auto"><strong>This directory contains a set of examples that give you an idea for how you might use Slate to implement your own editor. Take a look around!</strong></p>\n' +
     '<ul dir="auto">\n' +
