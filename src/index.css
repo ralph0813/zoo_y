@@ -4,7 +4,7 @@
 
 @layer base {
     button {
-        @apply focus:outline-none border rounded-md shadow-sm px-1
+        @apply focus:outline-none rounded-md
     }
 }
 

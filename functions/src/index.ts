@@ -20,7 +20,7 @@ exports.newUserSignUp = functions.auth.user()
       .collection('users')
       .doc(user.uid)
       .set({
-        uname: 'guest',
+        uname: user.email?.split('@')[0],
         email: user.email,
       })
   })
@@ -76,7 +76,6 @@ exports.addPosts = functions.https
 
 exports.getPostDetail = functions.https
   .onCall(async ({postId}: { postId: string }, context: CallableContext) => {
-    console.log(postId)
     const postDocRef = admin.firestore()
       .collection('posts')
       .doc(postId)
@@ -98,7 +97,29 @@ exports.getPosts = functions.https
         data: doc.data(),
       })
     })
-    return list
+    const newList = list.map(async (data) => {
+      const uid = data.data['uid']
+      let newData = data.data
+      const userDoc = admin.firestore()
+        .collection('users')
+        .doc(uid)
+      const userInfo = await userDoc.get()
+      const userData = userInfo.data() as any
+      newData = {
+        ...newData,
+        uname: userData['uname'],
+        avatar: userData['avatar'],
+        describe: userData['describe'],
+      }
+      return {
+        id: data.id,
+        data: newData,
+      }
+    })
+    return await Promise.all(newList)
+      .then((res) => {
+        return res
+      })
   })
 
 

@@ -1,14 +1,13 @@
 import * as React from 'react'
-import PostsItem from './PostsItem'
+import PostsItem, { PostItem } from './PostsItem'
 import { useUserInfoContext } from '../../context/userContext'
 import { useNavigate } from 'react-router-dom'
-import { range } from '../../utils/utils'
 import { useEffect, useState } from 'react'
 import { getPosts } from '../../firebase/service'
 import BaseLoading from '../../components/loadings/BaseLoading'
 
 export default function Posts() {
-  const [data, setData] = useState<undefined | []>()
+  const [postsList, setPostsList] = useState<undefined | PostItem[]>()
   const {
     state: userInfo,
     dispatch: userInfoDispatch
@@ -27,7 +26,8 @@ export default function Posts() {
     const getPostsData = async () => {
       const res = await getPosts()
       // @ts-ignore
-      setData(res.data)
+      setPostsList(res.data)
+      console.log(res.data)
     }
     getPostsData()
   }, [])
@@ -39,10 +39,10 @@ export default function Posts() {
         <button className="btn-primary py-1 mr-1 font-normal" onClick={handleAddPost}> Add post</button>
       </div>
       <div className="w-full">
-        {data
-          ? data.map((data: any) => (
+        {postsList
+          ? postsList.map((data: any) => (
             <div className="p-0.5" key={data.id}>
-              <PostsItem />
+              <PostsItem data={data} />
             </div>
           ))
           : <BaseLoading />

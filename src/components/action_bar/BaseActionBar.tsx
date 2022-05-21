@@ -61,17 +61,17 @@ const BaseActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
     <div className='w-full flex justify-between'>
       <div className='flex space-x-2 md:space-x-4'>
         <div className='flex space-x-1 text-sm text-gray-500 items-center'>
-          <EyeIcon className='md:h-6 md:w-6 h-4 w-4 text-gray-500' />
+          <EyeIcon className='h-4 w-4 text-gray-500' />
           <div className='sm:text-sm'>{nrOfVisit || 0}</div>
           <div className='hidden md:inline'>reads</div>
         </div>
         <div className='flex space-x-1 text-sm text-gray-500 items-center'>
-          <ChatAlt2Icon className='md:h-6 md:w-6 h-4 w-4 text-gray-500' />
+          <ChatAlt2Icon className='h-4 w-4 text-gray-500' />
           <div>{nrOfComment || 0}</div>
           <div className='hidden md:inline'>thread</div>
         </div>
         <div className='flex space-x-1 text-sm text-gray-500 items-center'>
-          <ClockIcon className='md:h-6 md:w-6 h-4 w-4 text-gray-500' />
+          <ClockIcon className='h-4 w-4 text-gray-500' />
           <div>{timeFrom || 0}</div>
           <div className='inline'>{unit || 'days'} <p className='hidden md:inline'>ago</p></div>
         </div>
@@ -82,8 +82,8 @@ const BaseActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
         onClick={handleThumbUpClick}
       >
         {thumbUp
-          ? <ThumbUpIconSolid className='md:h-6 md:w-6 h-4 w-4 text-gray-500' />
-          : <ThumbUpIconOutline className='md:h-6 md:w-6 h-4 w-4 text-gray-500' />
+          ? <ThumbUpIconSolid className='h-4 w-4 text-gray-500' />
+          : <ThumbUpIconOutline className='h-4 w-4 text-gray-500' />
         }
         <div>{thumbUpNum}</div>
         <div className='hidden md:inline'>likes</div>

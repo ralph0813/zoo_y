@@ -43,18 +43,19 @@ export default function Detail() {
       '"He is just going to help us push the car out of the driveway.'
   }
   const peopleNum = 1
-  const postsNum = 4
+  const postsNum = 3
   return (
     <div className="base-box">
       <div className="font-bold text-2xl cursor-pointer self-start pt-2" onClick={goToPostDetail}>{item.title}</div>
       <div className="flex justify-between w-full">
-        <div className="self-start">{peopleNum} people {postsNum} posts</div>
+        <div className="self-start text-gray-600">{peopleNum} people, {postsNum} follow posts</div>
         <button className="btn-secondary text-sm py-0.5 px-2" onClick={executeScroll}>follow posts</button>
       </div>
-
-      {range(0, postsNum)
+      <DetailItem />
+      <div className="self-start text-lg font-bold"> Fellow ups:</div>
+      {range(0, postsNum - 1)
         .map((key) => (
-          <div className="p-0.5" key={key} >
+          <div key={key}>
             <DetailItem />
           </div>
         ))}

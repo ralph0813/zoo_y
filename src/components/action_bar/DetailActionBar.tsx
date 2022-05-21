@@ -58,7 +58,7 @@ const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
   const [timeFrom, unit] = timeFromNow(new Date(createTime.replace(' ', 'T')))
   return (
     <div className='w-full flex justify-between'>
-      <div className="text-gray-400 text-base">
+      <div className="text-gray-500  text-sm">
         Posted on {date} {time}
       </div>
 
@@ -67,8 +67,8 @@ const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
         onClick={handleThumbUpClick}
       >
         {thumbUp
-          ? <ThumbUpIconSolid className='md:h-6 md:w-6 h-4 w-4 text-gray-500' />
-          : <ThumbUpIconOutline className='md:h-6 md:w-6 h-4 w-4 text-gray-500' />
+          ? <ThumbUpIconSolid className='h-4 w-4 text-gray-500' />
+          : <ThumbUpIconOutline className='h-4 w-4 text-gray-500' />
         }
         <div>{thumbUpNum}</div>
         <div className='hidden md:inline'>likes</div>
