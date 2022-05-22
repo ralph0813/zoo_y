@@ -1,7 +1,7 @@
 export const minioUrl = 'https://minio.juntao.life/ifb399/test'
 
 export const imgUrl = {
-  largeLogo: minioUrl + '/np_full.png',
+  largeLogo: minioUrl + '/zooy.png',
   smallLogo: minioUrl + '/np_logo.png',
   defaultAvatar: minioUrl + '/blank_avatar.png',
   bgLogin: minioUrl + '/bg_login.jpg',

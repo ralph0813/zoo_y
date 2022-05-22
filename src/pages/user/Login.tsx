@@ -7,6 +7,7 @@ import { UserCredential } from 'firebase/auth'
 import { imgUrl } from '../../service/url'
 import { signIn } from '../../firebase/auth'
 import { useUserInfoContext } from '../../context/userContext'
+import { getUserDetail } from '../../firebase/service'
 // import { userLogin } from '../../service/commonApi'
 // import { inputEmptyConfig, ModalConfig, passwordIncorrectConfig } from '../../utils/modalConfig'
 // import { useModelContext } from '../../context/ModelContext'
@@ -31,10 +32,19 @@ export default function Login() {
       try {
         const res = await signIn(email, password) as UserCredential
         const user = res.user
+
         if (user.emailVerified) {
-          console.log(user)
+          const userInfo = await getUserDetail({ uid: user.uid }) as any
           userInfoDispatch({
-            type: 'LOGIN'
+            type: 'LOGIN',
+            data: {
+              userEmail: user.email,
+              uid: user.uid,
+              isAdmin: userInfo.data.isAdmin,
+              uname: userInfo.data.uname,
+              avatar: userInfo.data.avatar,
+              about: userInfo.data.about
+            }
           })
           navigate(redirectPath)
         } else {

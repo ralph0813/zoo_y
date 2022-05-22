@@ -2,8 +2,13 @@ import * as React from 'react'
 import { setLocalStorage } from '../utils/utils'
 
 export type UserInfo = {
-  isLogin?: | boolean
-  userName: string
+  uid: string
+  uname: string
+  userEmail: string
+  avatar: string
+  about: string
+  isLogin?: boolean
+  isAdmin?: boolean
 }
 
 export type Action = {
@@ -15,8 +20,13 @@ export type UserInfoDispatch = React.Dispatch<Action>
 
 const getInitState = (): UserInfo => {
   return {
+    uid: localStorage.getItem('uid') || '',
     isLogin: localStorage.getItem('isLogin') === 'true',
-    userName: localStorage.getItem('userName') || ''
+    uname: localStorage.getItem('uname') || '',
+    isAdmin: localStorage.getItem('isAdmin') === 'true',
+    userEmail: localStorage.getItem('userEmail') || '',
+    avatar: localStorage.getItem('avatar') || '',
+    about: localStorage.getItem('about') || ''
   }
 }
 
@@ -29,7 +39,12 @@ export function reducer(state: UserInfo, action: Action) {
       return { ...state, ...action.data }
     case 'LOGIN':
       localStorage.setItem('isLogin', 'true')
-      localStorage.setItem('userName', action?.data?.userName)
+      localStorage.setItem('uname', action?.data?.uname || '')
+      localStorage.setItem('isAdmin', action?.data?.isAdmin || '')
+      localStorage.setItem('userEmail', action?.data?.userEmail || '')
+      localStorage.setItem('avatar', action?.data?.avatar || '')
+      localStorage.setItem('about', action?.data?.about || '')
+      localStorage.setItem('uid', action?.data?.uid || '')
       return {
         ...state,
         ...action.data,

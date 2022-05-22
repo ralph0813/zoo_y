@@ -56,13 +56,13 @@ export default function Header() {
   }
 
   const isLogin = userInfo.isLogin
-  // const username =  userInfo.username
-  // const userEmail = userInfo.userEmail
-  // const avatar = userInfo.userAvatar || imgUrl.defaultAvatar
+  const username =  userInfo.uname
+  const userEmail = userInfo.userEmail
+  const avatar = userInfo.avatar || imgUrl.defaultAvatar
 
-  const username = 'ralph'
-  const userEmail = 'ralph0813.ljt@gmail.com'
-  const avatar = imgUrl.defaultAvatar
+  // const username = 'ralph'
+  // const userEmail = 'ralph0813.ljt@gmail.com'
+  // const avatar = imgUrl.defaultAvatar
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -312,7 +312,7 @@ export default function Header() {
                   <button
                     className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                     onClick={() => {
-                      goTo('/explore/my_profile')
+                      goTo('/profile')
                     }}
                   >
                     Your Profile

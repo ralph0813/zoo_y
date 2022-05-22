@@ -19,7 +19,6 @@ export async function signUp(email: string, password: string) {
 export async function signIn(email: string, password: string) {
   // save cookies for staying logged in
   await setPersistence(auth, browserSessionPersistence)
-
   return await signInWithEmailAndPassword(auth, email, password)
 }
 

@@ -30,6 +30,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
     require('@rvxlab/tailwind-plugin-ios-full-height'),
   ],
 }

@@ -9,6 +9,7 @@ import {
   ThumbUpIcon as ThumbUpIconOutline,
 } from '@heroicons/react/outline'
 import { ThumbUpIcon as ThumbUpIconSolid } from '@heroicons/react/solid'
+import { useUserInfoContext } from '../../context/userContext'
 // import { doThumbUp } from '../../service/commonApi'
 // import { useModelContext } from '../../context/ModelContext'
 // import { ModalConfig, notLoginConfig } from '../../utils/modalConfig'
@@ -18,7 +19,6 @@ export interface ActionBarProps {
   articleId: string
   isThumbUp: boolean
   nrOfThumbUp: number
-  nrOfVisit: number
   nrOfComment: number
   createTime: string
 }
@@ -26,7 +26,7 @@ export interface ActionBarProps {
 const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
 
   // const { dispatch: modelDispatch } = useModelContext()
-  // const { state: userInfo } = useUserInfoContext()
+  const { state: userInfo } = useUserInfoContext()
   // const openModel = (config: ModalConfig) => {
   //   modelDispatch({ type: 'OPEN', config })
 
@@ -34,20 +34,13 @@ const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
     articleId,
     isThumbUp,
     nrOfThumbUp,
-    nrOfVisit,
-    nrOfComment,
     createTime,
   } = actionProps
   const [thumbUp, setThumbUp] = useState(isThumbUp)
   const [thumbUpNum, setThumbUpNum] = useState<number>(nrOfThumbUp)
   const { date, time } = FormatTime(createTime)
+  const isAdmin = userInfo.isAdmin
   const handleThumbUpClick = async () => {
-    // const isLogin = userInfo.isLogin
-    // if (!isLogin) {
-    //   openModel(notLoginConfig)
-    //   return
-    // }
-    // const { success, isThumbUp } = await doThumbUp({ articleId: articleId })
     if (!thumbUp) {
       setThumbUpNum((num) => num + 1)
     } else {
@@ -55,7 +48,6 @@ const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
     }
     setThumbUp(!thumbUp)
   }
-  const [timeFrom, unit] = timeFromNow(new Date(createTime.replace(' ', 'T')))
   return (
     <div className='w-full flex justify-between'>
       <div className="text-gray-500  text-sm">

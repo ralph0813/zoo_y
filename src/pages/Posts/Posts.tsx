@@ -27,7 +27,6 @@ export default function Posts() {
       const res = await getPosts()
       // @ts-ignore
       setPostsList(res.data)
-      console.log(res.data)
     }
     getPostsData()
   }, [])
