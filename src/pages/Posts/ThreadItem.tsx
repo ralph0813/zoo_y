@@ -1,9 +1,10 @@
 import * as React from 'react'
-import DetailActionBar from '../../components/action_bar/DetailActionBar'
+import { useEffect, useState } from 'react'
+
 import ShowRich from '../../components/tiny_mce/ShowRich'
 import { useUserInfoContext } from '../../context/userContext'
-import { useEffect, useState } from 'react'
 import { getThreadsDetail } from '../../firebase/service'
+import ThreadActionBar from '../../components/action_bar/ThreadActionBar'
 
 export default function ThreadItem({ tid }: { tid: string }) {
   const [data, setData] = useState<any>()
@@ -14,8 +15,9 @@ export default function ThreadItem({ tid }: { tid: string }) {
       setData(res)
       console.log(res)
     }
+
     getDetail()
-  },[])
+  }, [])
   const {
     state: userInfo,
   } = useUserInfoContext()
@@ -23,10 +25,10 @@ export default function ThreadItem({ tid }: { tid: string }) {
   const date = new Date()
   const min = date.getMinutes()
   date.setMinutes(min - 10)
-  const isThumbUp = item?.likedBy?.indexOf(userInfo.uid) === -1
+  const isThumbUp = item?.likedBy?.indexOf(userInfo.uid) !== undefined && item?.likedBy?.indexOf(userInfo.uid) !== -1
 
   const actionProps = {
-    articleId: data?.id,
+    articleId: tid,
     isThumbUp: isThumbUp,
     nrOfThumbUp: item?.likedBy?.length || 0,
     nrOfComment: item?.follows?.length || 0,
@@ -45,7 +47,7 @@ export default function ThreadItem({ tid }: { tid: string }) {
           <ShowRich body={item?.body} />
         </div>
         <div className="py-1">
-          <DetailActionBar actionProps={actionProps} />
+          <ThreadActionBar actionProps={actionProps} />
         </div>
       </div>
     </div>

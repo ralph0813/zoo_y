@@ -225,6 +225,104 @@ exports.getPosts = functions.https
       })
   })
 
+exports.getUnCheckedPosts = functions.https
+  .onCall(async (data, context: CallableContext) => {
+    const postDocRef = admin.firestore()
+      .collection('posts')
+      .where('checked', '==', false)
+      // .orderBy('createTime')
+      .limit(100)
+    const snapshot = await postDocRef.get()
+    const list: { id: string; data: firestore.DocumentData }[] = []
+    snapshot.forEach((doc) => {
+      list.push({
+        id: doc.id,
+        data: doc.data(),
+      })
+    })
+    const newList = list.map(async (data) => {
+      const uid = data.data['uid']
+      let newData = data.data
+      const userDoc = admin.firestore()
+        .collection('users')
+        .doc(uid)
+      const userInfo = await userDoc.get()
+      const userData = userInfo.data() as any
+      newData = {
+        ...newData,
+        uname: userData['uname'],
+        avatar: userData['avatar'],
+        about: userData['about'],
+        createTime: newData.createTime.toDate()
+          .toISOString(),
+      }
+      return {
+        id: data.id,
+        data: newData,
+      }
+    })
+    return await Promise.all(newList)
+      .then((res) => {
+        return res
+      })
+  })
+
+exports.getAllPosts = functions.https
+  .onCall(async (data, context: CallableContext) => {
+    const postDocRef = admin.firestore()
+      .collection('posts')
+      .orderBy('createTime')
+      .limit(100)
+    const snapshot = await postDocRef.get()
+    const list: { id: string; data: firestore.DocumentData }[] = []
+    snapshot.forEach((doc) => {
+      list.push({
+        id: doc.id,
+        data: doc.data(),
+      })
+    })
+    const newList = list.map(async (data) => {
+      const uid = data.data['uid']
+      let newData = data.data
+      const userDoc = admin.firestore()
+        .collection('users')
+        .doc(uid)
+      const userInfo = await userDoc.get()
+      const userData = userInfo.data() as any
+      newData = {
+        ...newData,
+        uname: userData['uname'],
+        avatar: userData['avatar'],
+        about: userData['about'],
+        createTime: newData.createTime.toDate()
+          .toISOString(),
+      }
+      return {
+        id: data.id,
+        data: newData,
+      }
+    })
+    return await Promise.all(newList)
+      .then((res) => {
+        return res
+      })
+  })
+
+exports.getAllUsers = functions.https
+  .onCall(async (data, context: CallableContext) => {
+    const list: { id: string; data: firestore.DocumentData }[] = []
+    const postDocRef = admin.firestore()
+      .collection('users')
+      .limit(100)
+    const snapshot = await postDocRef.get()
+    snapshot.forEach((doc) => {
+      list.push({
+        id: doc.id,
+        data: doc.data(),
+      })
+    })
+    return list
+  })
 
 exports.getThreadsDetail = functions.https
   .onCall(async ({pid}, context: CallableContext) => {
@@ -249,4 +347,44 @@ exports.getThreadsDetail = functions.https
       about: userData['about'],
     }
     return newData
+  })
+
+exports.thumbUp = functions.https
+  .onCall(async (d, context: CallableContext) => {
+    if (!context.auth) {
+      throw new functions.https.HttpsError('unauthenticated',
+        'only authenticated user can send posts')
+    } else {
+      const {
+        type,
+        pid,
+        up,
+      } = d
+
+      const postDocRef = admin.firestore()
+        .collection(type)
+        .doc(pid)
+      const postDoc = await postDocRef.get()
+      const data = postDoc.data() as any
+      const uid = context.auth.uid
+      const likedBy = data.likedBy || []
+
+      if (up) {
+        if (likedBy.indexOf(uid) === -1) {
+          likedBy.push(uid)
+          await postDocRef.set({likedBy}, {merge: true})
+          return true
+        } else {
+          return 'already'
+        }
+      } else {
+        if (likedBy.indexOf(uid) === -1) {
+          return 'already'
+        } else {
+          likedBy.splice(likedBy.indexOf(uid), 1)
+          await postDocRef.set({likedBy: likedBy}, {merge: true})
+          return true
+        }
+      }
+    }
   })

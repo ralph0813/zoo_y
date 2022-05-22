@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/outline'
 import { ThumbUpIcon as ThumbUpIconSolid } from '@heroicons/react/solid'
 import { useUserInfoContext } from '../../context/userContext'
-import { allowPost } from '../../firebase/service'
+import { allowPost, doThumbUp } from '../../firebase/service'
 // import { doThumbUp } from '../../service/commonApi'
 // import { useModelContext } from '../../context/ModelContext'
 // import { ModalConfig, notLoginConfig } from '../../utils/modalConfig'
@@ -52,16 +52,16 @@ const BaseActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
   }
 
   const handleThumbUpClick = async () => {
-    // const isLogin = userInfo.isLogin
-    // if (!isLogin) {
-    //   openModel(notLoginConfig)
-    //   return
-    // }
-    // const { success, isThumbUp } = await doThumbUp({ articleId: articleId })
     if (!thumbUp) {
+      if(!userInfo.isLogin){
+        alert("Please login in first.")
+        return
+      }
       setThumbUpNum((num) => num + 1)
+      doThumbUp({ type: 'posts', pid: actionProps.articleId, up: true })
     } else {
       setThumbUpNum((num) => num - 1)
+      doThumbUp({ type: 'posts', pid: actionProps.articleId, up: false })
     }
     setThumbUp(!thumbUp)
   }

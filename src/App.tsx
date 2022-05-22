@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useEffect, useReducer } from 'react'
+import { useReducer } from 'react'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/user/Login'
@@ -14,13 +14,15 @@ import Profile from './pages/user/Profile'
 import Detail from './pages/Posts/Detail'
 import AddPost from './pages/Posts/AddPost'
 import AdminLayout from './components/layouts/AdminLayout'
-import AdminPosts from './pages/admin/Posts.ts'
+import AdminPosts from './pages/admin/AllPosts'
 
 import {
   UserInfoContext,
   reducer as userInfoReducer,
   initialState as userInitialState,
 } from './context/userContext'
+import UncheckedPosts from './pages/admin/UncheckedPosts'
+import Allusers from './pages/admin/AllUsers'
 
 export default function App() {
   const [userInfo, userInfoDispatcher] = useReducer(userInfoReducer, userInitialState)
@@ -35,8 +37,11 @@ export default function App() {
             <AdminLayout>
               <Routes>
                 <Route path="/" element={<AdminPosts />} />
-                <Route path="/users" element={<AdminPosts />} />
-                <Route path="/posts" element={<AdminPosts />} />
+                <Route path="/posts/all" element={<AdminPosts />} />
+                <Route path="/posts/unchecked" element={<UncheckedPosts />} />
+                <Route path="/users" element={<Allusers />} />
+
+
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AdminLayout>

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { UserIcon, MenuAlt1Icon, ViewListIcon, XIcon } from '@heroicons/react/outline'
+import { UserIcon, MenuAlt1Icon, ViewListIcon, XIcon, CheckIcon } from '@heroicons/react/outline'
 import { SelectorIcon } from '@heroicons/react/solid'
 import { classNames } from '../../utils/utils'
 import BaseTitle from '../../components/admin/titleActions/BaseTitle'
@@ -15,9 +15,9 @@ type Props = {
 
 const AdminLayout = ({ children }: Props) => {
   const navigation = [
-    { name: 'Users', to: '/admin', icon: UserIcon, current: false },
-    // { name: 'Articles', to: '/admin/articles', icon: ClockIcon, current: false },
-    { name: 'Posts', to: '/admin/posts', icon: ViewListIcon, current: false },
+    { name: 'Unchecked Posts', to: '/admin/posts/unchecked', icon:ViewListIcon , current: false },
+    { name: 'All Posts', to: '/admin/posts/all', icon: CheckIcon, current: false },
+    { name: 'Users', to: '/admin/users', icon: UserIcon, current: false },
   ]
 
   const location = useLocation()

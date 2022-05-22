@@ -2,10 +2,7 @@ import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import DetailItem from './DetailItem'
-import FollowPosts from './FollowPosts'
-import { range } from '../../utils/utils'
 import { addThreads, getPostDetail } from '../../firebase/service'
-import RichTextEditor from '../../components/tiny_mce/RichTextEditor'
 import { useDate } from '../../hooks/useDate'
 import { Editor } from '@tinymce/tinymce-react'
 import { Editor as TinyMCEEditor } from 'tinymce'
@@ -26,18 +23,23 @@ export default function Detail() {
 
   const post = async () => {
     const { richText, plainText } = getInput()
+    if (plainText === '') {
+      alert('Please in put something.')
+    }
+
     const res = await addThreads({
       body: plainText as string,
       bodyRich: richText as string,
       createTime: new Date().toISOString(),
       pid: postId
     })
-    console.log(res)
     if (res.data) {
       alert('Post successfully!')
       // @ts-ignore
       window.location.reload()
+      return
     }
+    alert("Something went wrong")
   }
 
   useEffect(() => {
@@ -45,7 +47,6 @@ export default function Detail() {
       const detail = await getPostDetail({ postId })
       // @ts-ignore
       setPostDetail(detail.data)
-      console.log(detail)
     }
     getDetail()
   }, [])

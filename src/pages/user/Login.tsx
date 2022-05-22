@@ -8,10 +8,6 @@ import { imgUrl } from '../../service/url'
 import { signIn } from '../../firebase/auth'
 import { useUserInfoContext } from '../../context/userContext'
 import { getUserDetail } from '../../firebase/service'
-// import { userLogin } from '../../service/commonApi'
-// import { inputEmptyConfig, ModalConfig, passwordIncorrectConfig } from '../../utils/modalConfig'
-// import { useModelContext } from '../../context/ModelContext'
-// import { useUserInfoContext } from '../../context/UserInfoContext'
 
 export default function Login() {
   const {

@@ -3,8 +3,6 @@ import BaseActionBar from '../../components/action_bar/BaseActionBar'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUserInfoContext } from '../../context/userContext'
-// import firebase from 'firebase/compat'
-// import Timestamp = firebase.firestore.Timestamp
 
 export interface PostItem {
   id: string
@@ -42,11 +40,11 @@ export default function PostsItem({ data }: { data: PostItem }) {
   const default_describe = ''
 
   const shorTextCont = 80
-  const date = new Date()
-  const min = date.getMinutes()
-  date.setMinutes(min - 10)
+
   // @ts-ignore
-  const isThumbUp = itemData?.likedBy?.indexOf(userInfo.uid) === -1
+  const isThumbUp = itemData?.likedBy?.indexOf(userInfo.uid) !== undefined && itemData?.likedBy?.indexOf(userInfo.uid) !== -1
+
+  // const isThumbUp = itemData?.likedBy?.indexOf(userInfo.uid) !== -1
   const actionProps = {
     articleId: pid,
     isThumbUp: isThumbUp ,

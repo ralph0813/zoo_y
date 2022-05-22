@@ -21,6 +21,10 @@ export default function AddPost() {
 
   const post = async () => {
     const { richText, plainText } = getInput()
+    if (plainText === '' || title === '') {
+      alert('Please in put something.')
+      return
+    }
     const res = await addPosts({
       title: title,
       body: plainText as string,
@@ -28,8 +32,8 @@ export default function AddPost() {
       createTime: new Date().toISOString()
     })
     console.log(res)
-    if(res.data){
-      alert("Post successfully!")
+    if (res.data) {
+      alert('Post successfully!')
       // @ts-ignore
       navigate(`/posts/${res.data}`)
     }

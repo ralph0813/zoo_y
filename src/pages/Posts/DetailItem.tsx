@@ -11,13 +11,12 @@ export default function DetailItem({ data }: { data: any }) {
   const date = new Date()
   const min = date.getMinutes()
   date.setMinutes(min - 10)
-  const isThumbUp = item?.likedBy?.indexOf(userInfo.uid) === -1
-
+  const isThumbUp = item?.likedBy?.indexOf(userInfo.uid) !== undefined && item?.likedBy?.indexOf(userInfo.uid) !== -1
+  console.log(item?.likedBy?.length)
   const actionProps = {
     articleId: data.id,
     isThumbUp: isThumbUp,
-    nrOfThumbUp: item?.likedBy?.length || 0,
-    nrOfComment: item?.follows?.length || 0,
+    nrOfThumbUp: item?.likedBy?.length,
     createTime: item.createTime
   }
 

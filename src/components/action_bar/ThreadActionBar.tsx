@@ -7,10 +7,6 @@ import {
 import { ThumbUpIcon as ThumbUpIconSolid } from '@heroicons/react/solid'
 import { useUserInfoContext } from '../../context/userContext'
 import { doThumbUp } from '../../firebase/service'
-// import { doThumbUp } from '../../service/commonApi'
-// import { useModelContext } from '../../context/ModelContext'
-// import { ModalConfig, notLoginConfig } from '../../utils/modalConfig'
-// import { useUserInfoContext } from '../../context/UserInfoContext'
 
 export interface ActionBarProps {
   articleId: string
@@ -19,12 +15,9 @@ export interface ActionBarProps {
   createTime: string
 }
 
-const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
+const ThreadActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
 
-  // const { dispatch: modelDispatch } = useModelContext()
   const { state: userInfo } = useUserInfoContext()
-  // const openModel = (config: ModalConfig) => {
-  //   modelDispatch({ type: 'OPEN', config })
 
   const {
     articleId,
@@ -48,10 +41,10 @@ const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
     }
     if (!thumbUp) {
       setThumbUpNum((num) => num + 1)
-      doThumbUp({ type: 'posts', pid: actionProps.articleId, up: true })
+      doThumbUp({ type: 'threads', pid: articleId, up: true })
     } else {
       setThumbUpNum((num) => num - 1)
-      doThumbUp({ type: 'posts', pid: actionProps.articleId, up: false })
+      doThumbUp({ type: 'threads', pid: articleId, up: false })
     }
     setThumbUp(!thumbUp)
   }
@@ -75,4 +68,4 @@ const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
     </div>
   )
 }
-export default DetailActionBar
+export default ThreadActionBar

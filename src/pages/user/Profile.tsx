@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useUserInfoContext } from '../../context/userContext'
 import { setUserDetail } from '../../firebase/service'
-import { data } from 'autoprefixer'
 
 // import UseGetUserInfo from '../../hooks/useGetUserInfo'
 // import { changeUserInfo, userLogout } from '../../service/commonApi'
@@ -236,7 +235,7 @@ const Profile = () => {
           <button
             className="btn-primary w-full flex justify-center"
             onClick={() => {
-              handleSave('about',about)
+              handleSave('about', about)
             }}
           >
             Save About

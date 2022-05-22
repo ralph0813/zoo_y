@@ -33,7 +33,7 @@ export default function Signup() {
   // })
   const handleSignUp = async () => {
     if (email && password && isPasswordMatch) {
-      const res = await signUp(email, password)
+      await signUp(email, password)
       navigate('/login')
     } else {
       alert('Check your input.')
