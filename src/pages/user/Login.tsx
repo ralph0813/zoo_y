@@ -34,12 +34,12 @@ export default function Login() {
           userInfoDispatch({
             type: 'LOGIN',
             data: {
-              userEmail: user.email,
-              uid: user.uid,
-              isAdmin: userInfo.data.isAdmin,
-              uname: userInfo.data.uname,
-              avatar: userInfo.data.avatar,
-              about: userInfo.data.about
+              userEmail: user?.email,
+              uid: user?.uid,
+              isAdmin: userInfo?.data.isAdmin,
+              uname: userInfo?.data.uname,
+              avatar: userInfo?.data.avatar,
+              about: userInfo?.data.about
             }
           })
           navigate(redirectPath)

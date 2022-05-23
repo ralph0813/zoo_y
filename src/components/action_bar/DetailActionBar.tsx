@@ -69,7 +69,7 @@ const DetailActionBar = ({ actionProps }: { actionProps: ActionBarProps }) => {
           ? <ThumbUpIconSolid className="h-4 w-4 text-gray-500" />
           : <ThumbUpIconOutline className="h-4 w-4 text-gray-500" />
         }
-        <div>{thumbUpNum}</div>
+        <div>{thumbUpNum || 0}</div>
         <div className="hidden md:inline">likes</div>
       </div>
     </div>

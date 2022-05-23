@@ -9,7 +9,7 @@ export default function Characteristic() {
     <div className="base-box items-start text-justify">
       <YoutubeEmbed embedId={'E8qbnEUa1oA'} />
 
-      <div className="font-mono text-4xl py-5 text-gray-800 font-medium"> Giant pandas' characteristic</div>
+      {/* <div className="font-mono text-xl sm:text-4xl py-5 text-gray-800 font-medium"> Giant pandas' characteristic</div> */}
 
       <div className="font-mono text-2xl py-2 text-gray-800 font-medium">Why Are Pandas Endangered Animals?</div>
       <div className="space-y-4 text-gray-800">
@@ -187,14 +187,22 @@ export default function Characteristic() {
         two at birth, only one will survive because the mother panda prefers to give attention to just one of them.
       </p>
 
-      <div className="py-2 font-medium font-serif text-gray-700">Updated April 22, 2022 By Juntao Lu</div>
+      <div className="font-medium font-serif text-lg pt-2">References:</div>
+      <li>
+        <a href="https://ielc.libguides.com/sdzg/factsheets/giantpanda/diet">
+          TSan Diego Zoo Wildlife Alliance
+        </a>
+      </li>
+
+
+      <div className="py-2 font-medium font-serif text-gray-700">Updated April 12, 2022 By Juntao Lu</div>
       <div>
         <li
           className="btn-link underline"
           onClick={() => {
-            navigate('/characteristic')
+            navigate('/')
           }}>
-          Read more about pandas' characteristic
+          Link to homepage
         </li>
         <li
           className="btn-link underline" onClick={() => {
@@ -209,8 +217,6 @@ export default function Characteristic() {
           Join the discussion
         </li>
       </div>
-
-
     </div>
   )
 }

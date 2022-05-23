@@ -34,14 +34,13 @@ export default function App() {
       }}>
         <Routes>
           <Route path="/admin/*" element={
+
             <AdminLayout>
               <Routes>
                 <Route path="/" element={<AdminPosts />} />
                 <Route path="/posts/all" element={<AdminPosts />} />
                 <Route path="/posts/unchecked" element={<UncheckedPosts />} />
                 <Route path="/users" element={<Allusers />} />
-
-
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AdminLayout>

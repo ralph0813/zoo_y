@@ -7,6 +7,7 @@ import { useDate } from '../../hooks/useDate'
 import { Editor } from '@tinymce/tinymce-react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 import ThreadItem from './ThreadItem'
+import { AnnotationOutline } from 'heroicons-react'
 
 export default function Detail() {
   const params = useParams()
@@ -39,7 +40,7 @@ export default function Detail() {
       window.location.reload()
       return
     }
-    alert("Something went wrong")
+    alert('Something went wrong')
   }
 
   useEffect(() => {
@@ -86,12 +87,18 @@ export default function Detail() {
       <div className="w-full">
         <DetailItem data={item} />
       </div>
-      <div className="self-start text-lg font-bold"> Threads:</div>
+      <div className="self-start text-lg font-bold pt-5"> Threads:</div>
       {postDetail && postDetail?.follows?.map((key: string) => (
         <div className="w-full" key={key}>
           <ThreadItem tid={key} />
         </div>
       ))}
+      {(postDetail && postDetail?.follows.length === 0) && (
+        <div className='text-center mx-5'>
+          <AnnotationOutline className='mx-auto h-12 w-12 text-gray-400' />
+          <h3 className='mt-2 text-sm font-medium text-gray-900'>No Posts</h3>
+        </div>
+      )}
       <div ref={myRef} />
       <div className="flex flex-col w-full space-y-2">
         <div className="font-medium text-lg">Follow Posts:</div>
@@ -101,7 +108,7 @@ export default function Detail() {
             // @ts-ignore
             onInit={(evt, editor) => editorRef.current = editor}
             init={{
-              height: 500,
+              height: 300,
               menubar: false,
               // selector: 'textarea#premiumskinsandicons-jam',
               skin: 'jam',
